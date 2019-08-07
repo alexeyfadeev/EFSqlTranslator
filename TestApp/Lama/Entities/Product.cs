@@ -183,7 +183,7 @@ namespace Lama.ContractorPortal.Sql.Entities
         /// <summary> Width </summary>
         [Column("width")]
         public System.Nullable<float> Width { get; set; }
-        
+
         /// <summary> Sql Xml </summary>
         public string SqlXml
         {

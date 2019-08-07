@@ -1,5 +1,6 @@
 namespace Lama.ContractorPortal.Sql.Entities
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     
@@ -35,5 +36,7 @@ namespace Lama.ContractorPortal.Sql.Entities
         /// <summary> Tin </summary>
         [Column("tin")]
         public string Tin { get; set; }
+
+        public List<Contact> Contacts { get; set; }
     }
 }
