@@ -87,8 +87,8 @@ namespace TestApp
                     .Select(x => new { x.Name, agg = x.Contacts.DistinctCount(c => c.Role) });
                 // 1. Max/Sum - OK, DistinctCount - crash
 
-                var script0 = QueryTranslator.Translate(query3.Expression, new EFModelInfoProvider(context), new SqlObjectFactory());
-                var sql4 = script0.ToString();
+                // var script0 = QueryTranslator.Translate(query3.Expression, new EFModelInfoProvider(context), new SqlObjectFactory());
+                // var sql4 = script0.ToString();
 
                 var script = context.Query(query3, new EFModelInfoProvider(context), new SqlObjectFactory());
                 var result3 = script.ToList();
