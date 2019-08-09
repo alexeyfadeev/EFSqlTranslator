@@ -12,6 +12,7 @@ namespace TestApp
     using EFSqlTranslator.Translation.Extensions;
     using Fadeev.PostgresEfTest.Ef;
     using Lama.ContractorPortal.Sql;
+    using RedAlliance.Orm.Sql;
 
     class Program
     {
@@ -33,6 +34,13 @@ namespace TestApp
             var connStr = "Data Source=vm-lama.development.com; Initial Catalog=Lama; Integrated Security=False; User Id=lama; Password=kfvfadmin; MultipleActiveResultSets=True";
 
             return new LamaDbContext(connStr);
+        }
+
+        private TestDbContext GetTestContext()
+        {
+            var connStr = "Server=localhost;Port=5432;User Id=alexeys;Password=1;Database=test";
+
+            return new TestDbContext(connStr);
         }
 
         private void TestCount()
@@ -101,6 +109,14 @@ namespace TestApp
                 // OK
                 var result5 = context.Query(query5, new EFModelInfoProvider(context), new SqlObjectFactory()).ToList();
                 // crash(!)
+            }
+        }
+
+        private void TestArray()
+        {
+            using (var context = this.GetTestContext())
+            {
+
             }
         }
     }
