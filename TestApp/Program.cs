@@ -3,7 +3,9 @@
 namespace TestApp
 {
     using System.Linq;
-    
+    using System.Linq.Expressions;
+
+
     using Dapper;
     using EFSqlTranslator.EFModels;
     using EFSqlTranslator.Translation;
@@ -19,7 +21,7 @@ namespace TestApp
         static void Main(string[] args)
         {
             var prog = new Program();
-            prog.TestLama();
+            prog.TestArray();
         }
 
         private KtkDbContext GetKtkContext()
@@ -38,7 +40,7 @@ namespace TestApp
 
         private TestDbContext GetTestContext()
         {
-            var connStr = "Server=localhost;Port=5432;User Id=alexeys;Password=1;Database=test";
+            var connStr = "Server=localhost;Port=5432;User Id=alexey;Password=1;Database=test";
 
             return new TestDbContext(connStr);
         }
@@ -116,7 +118,23 @@ namespace TestApp
         {
             using (var context = this.GetTestContext())
             {
+                var ids = new[] { 1, 2, 3 };
 
+                var query2 = context.TextRecords
+                    .Where(x => x.Id > 10)
+                    .Select(x => x);
+
+                var query = context.NumberArrays
+                    .Where(x => x.Data.Contains(6))
+                    .Select(x => x);
+                    //.Select(x => x.Data); // Exception. select * - ok
+
+
+                var script = QueryTranslator.Translate(query.Expression, new EFModelInfoProvider(context), new SqlObjectFactory());
+                var sql5= script.ToString();
+
+                var result = context.Query(query, new EFModelInfoProvider(context), new SqlObjectFactory(), out var sql)
+                    .ToList();
             }
         }
     }

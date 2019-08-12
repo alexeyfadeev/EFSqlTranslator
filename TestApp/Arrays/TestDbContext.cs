@@ -14,6 +14,9 @@ namespace RedAlliance.Orm.Sql
         /// <summary> TextArrays </summary>
         public DbSet<TextArray> TextArrays { get; set; }
         
+        /// <summary> TextRecords </summary>
+        public DbSet<TextRecord> TextRecords { get; set; }
+        
         /// <summary> Database context constructor </summary>
         public TestDbContext(string connectionString)
         {
